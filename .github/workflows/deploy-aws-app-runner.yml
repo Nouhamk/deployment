@@ -56,12 +56,12 @@ jobs:
           docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${DOCKER_REPO_LOWER}
 
       - name: Deploy staging with Docker push
-        if: ${{ inputs.environment }} == 'Staging'
+        if: ${{ inputs.environment }} == 'Staging'$
         id: push
         run: |
           DOCKER_REPO_LOWER=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
           docker push ${{ secrets.AWS_ACCOUNT_NUMBER }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com/${DOCKER_REPO_LOWER}
-
+          
       - name: Deploy production with aws CLI
         if: ${{ inputs.environment }} == 'Production'
         run: |
