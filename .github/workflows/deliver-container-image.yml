@@ -46,9 +46,8 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
            DOCKER_USERNAME=$(echo "${{ github.actor }}" | tr '[:upper:]' '[:lower:]')
-            echo "DOCKER_USERNAME=${DOCKER_USERNAME}" >> $GITHUB_ENV
             docker login -u $DOCKER_USERNAME -p ${{ secrets.GITHUB_TOKEN }} ${{ env.REGISTRY }}
-
+            
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
